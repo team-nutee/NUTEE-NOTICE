@@ -12,7 +12,6 @@
     <artifactId>crawler</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>crawler</name>
-    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
