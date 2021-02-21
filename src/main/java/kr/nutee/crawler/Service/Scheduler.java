@@ -51,9 +51,12 @@ public class Scheduler {
 //
 //        String today = format.format(Calendar.getInstance().getTime());
 //        String page = list.get(0).get("date");
+        List<Notice> notices = filterNewNotice(new ArrayList<>());
+        //sendAlarm(notices);
+        addNewNotice(notices);
     }
 
-    private List<Notice> getNewNotice(List<Notice> pageNotices) {
+    private List<Notice> filterNewNotice(List<Notice> pageNotices) {
         return pageNotices.stream().filter(this::isNewNotice).collect(Collectors.toList());
     }
 
