@@ -29,9 +29,9 @@ public class Scheduler {
     * 서버 크롤링 하는형식 -> 우리 데이터베이스에 저장되어있는 데이터를 꺼내오는 방식
     */
 
-    @Scheduled(cron = "0 0 * * * *")
+//    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(fixedDelay = 5000)
     public void getHaksaPage(String url) throws IOException {
-//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Document doc = Jsoup.connect(url).get();
         int size = doc.getElementsByTag("td").size();
         List<Map<String, String>> list = new ArrayList<>();
@@ -44,13 +44,7 @@ public class Scheduler {
             map.put("date", doc.getElementsByTag("td").get(i + 4).text());
             list.add(map);
         }
-//        List<Map<String, String>> list = new ArrayList<>();
-//        Map<String, String> map = new LinkedHashMap<>();
-//        map.put("date", doc.getElementsByTag("td").get(0 + 4).text());
-//        list.add(map);
-//
-//        String today = format.format(Calendar.getInstance().getTime());
-//        String page = list.get(0).get("date");
+        isNewNotice(new Notice(list.get(0).get("title")));
         List<Notice> notices = filterNewNotice(new ArrayList<>());
         //sendAlarm(notices);
         addNewNotice(notices);
@@ -61,8 +55,7 @@ public class Scheduler {
     }
 
     private boolean isNewNotice(Notice notice) {
-        //logic
-        return true;
+        return noticeRepository.findNoticeByTitle(notice.getTitle()) == null;
     }
 
     private void addNewNotice(List<Notice> newNotices) {

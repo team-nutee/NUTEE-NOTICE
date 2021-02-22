@@ -19,7 +19,7 @@ class CrwalingTest {
     /*    @Test
         void crawlHaksa() throws IOException {*/
     @Test
-    public List<Map<String, String>> getPageData() throws IOException {
+    void getPageData() throws IOException {
         String URL = "http://www.skhu.ac.kr/board/boardlist.aspx?bsid=10004&searchBun=51";
         Document doc = Jsoup.connect(URL).get();
         int size = doc.getElementsByTag("td").size();
@@ -33,7 +33,7 @@ class CrwalingTest {
             map.put("date", doc.getElementsByTag("td").get(i + 4).text());
             list.add(map);
         }
-//        System.out.println(list);
+        System.out.println(list);
 //        return list;
 /*        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        System.out.println(format.format(Calendar.getInstance().getTime()));
@@ -48,8 +48,6 @@ class CrwalingTest {
             System.out.println("새로운것");
         }
         System.out.println(list);*/
-        System.out.println("List return");
-        return list;
     }
 
     @Test

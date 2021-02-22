@@ -27,4 +27,8 @@ public class Notice {
     private LocalDate createdAt;
 
     private int hit;
+
+    public Notice(String title) {
+        this.title = title;
+    }
 }
