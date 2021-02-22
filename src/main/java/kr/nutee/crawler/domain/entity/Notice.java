@@ -7,12 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Notice {
 
     @Id
@@ -24,7 +26,7 @@ public class Notice {
 
     private String href;
 
-    private LocalDate createdAt;
+    private String date;
 
     private int hit;
 

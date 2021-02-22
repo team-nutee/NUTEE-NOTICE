@@ -10,5 +10,5 @@ public interface NoticeRepository extends JpaRepository<Notice,String> {
     Notice findNoticeByTitle(String title);
     Notice findNoticeByAuthor(String author);
     Notice findNoticeByHref(String href);
-    Notice findNoticeByCreatedAt(LocalDate createdAt);
+    Notice findNoticeByDate(String date);
 }

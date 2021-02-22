@@ -1,8 +1,11 @@
 package kr.nutee.crawler.Service;
 
 import java.util.stream.Collectors;
+import kr.nutee.crawler.Enum.SchoolUrl;
 import kr.nutee.crawler.domain.entity.Notice;
 import kr.nutee.crawler.repository.NoticeRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
-public class Scheduler {
-    @Autowired
-    NoticeRepository noticeRepository;
+@RequiredArgsConstructor
+@Slf4j
+public class SchedulerService {
+
+    private final NoticeRepository noticeRepository;
 
     /*
     * 1. 해당 페이지의 전체를 긁어와요
@@ -29,23 +34,29 @@ public class Scheduler {
     * 서버 크롤링 하는형식 -> 우리 데이터베이스에 저장되어있는 데이터를 꺼내오는 방식
     */
 
-//    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     @Scheduled(fixedDelay = 5000)
-    public void getHaksaPage(String url) throws IOException {
+    public void getHaksaPage() throws IOException {
+        String url = SchoolUrl.HAKSA_URL.getUrl();
         Document doc = Jsoup.connect(url).get();
         int size = doc.getElementsByTag("td").size();
-        List<Map<String, String>> list = new ArrayList<>();
+        List<Notice> list = new ArrayList<>();
         for (int i = 0; i < size; i += 6) {
-            Map<String, String> map = new LinkedHashMap<>();
-            map.put("no", doc.getElementsByTag("td").get(i).text());
-            map.put("title", doc.getElementsByTag("td").get(i + 1).text());
-            map.put("href", "http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1).getElementsByTag("a").attr("href"));
-            map.put("author", doc.getElementsByTag("td").get(i + 3).text());
-            map.put("date", doc.getElementsByTag("td").get(i + 4).text());
-            list.add(map);
+            list.add(
+                Notice.builder()
+                    .no(doc.getElementsByTag("td").get(i).text())
+                    .title(doc.getElementsByTag("td").get(i + 1).text())
+                    .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
+                        .getElementsByTag("a").attr("href"))
+                    .author(doc.getElementsByTag("td").get(i + 3).text())
+                    .date(doc.getElementsByTag("td").get(i + 4).text())
+                    .build()
+            );
         }
-        isNewNotice(new Notice(list.get(0).get("title")));
-        List<Notice> notices = filterNewNotice(new ArrayList<>());
+
+//        isNewNotice(new Notice(list.get(0).get("title")));
+        List<Notice> notices = filterNewNotice(list);
+        System.out.println(notices);
         //sendAlarm(notices);
         addNewNotice(notices);
     }

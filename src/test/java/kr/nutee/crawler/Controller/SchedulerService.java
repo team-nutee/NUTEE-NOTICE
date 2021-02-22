@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class Scheduler {
+public class SchedulerService {
 
     //    @Scheduled(cron = "0 0 20 * * *")
     @Test
