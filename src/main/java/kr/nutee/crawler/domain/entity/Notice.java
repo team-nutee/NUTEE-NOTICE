@@ -14,7 +14,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 public class Notice {
 
     @Id

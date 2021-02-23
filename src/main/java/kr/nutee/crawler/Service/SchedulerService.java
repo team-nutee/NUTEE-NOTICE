@@ -34,8 +34,8 @@ public class SchedulerService {
     * 서버 크롤링 하는형식 -> 우리 데이터베이스에 저장되어있는 데이터를 꺼내오는 방식
     */
 
-    @Scheduled(cron = "0 * * * * *")
-    @Scheduled(fixedDelay = 5000)
+//    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(fixedDelay = 1000000)
     public void getHaksaPage() throws IOException {
         String url = SchoolUrl.HAKSA_URL.getUrl();
         Document doc = Jsoup.connect(url).get();
@@ -52,11 +52,14 @@ public class SchedulerService {
                     .date(doc.getElementsByTag("td").get(i + 4).text())
                     .build()
             );
+            System.out.println(list.get(i/6).getTitle() + " NoType : " + list.get(i/6).getNo()); //확인용
+            System.out.println(isNewNotice(list.get(i/6))); //true면 없는거 false면 중복
+            isNewNotice(list.get(i/6));
         }
-
-//        isNewNotice(new Notice(list.get(0).get("title")));
+        System.out.println("end");
         List<Notice> notices = filterNewNotice(list);
-        System.out.println(notices);
+        System.out.println("notices : " + notices.size()); //10개로 인식하는데 테이블에 추가 x -> 테이블 초기화하면 26개로 인식
+
         //sendAlarm(notices);
         addNewNotice(notices);
     }
@@ -67,6 +70,7 @@ public class SchedulerService {
 
     private boolean isNewNotice(Notice notice) {
         return noticeRepository.findNoticeByTitle(notice.getTitle()) == null;
+//        return noticeRepository.findNoticeByTitle(notice.getTitle()) == null;
     }
 
     private void addNewNotice(List<Notice> newNotices) {
