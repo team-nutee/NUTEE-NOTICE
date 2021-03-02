@@ -29,11 +29,11 @@ public class SchedulerService {
      * 4. 그 새로운 게시물들을 각각 알림서버에 데이터를 보내준다.
      * 5. 새로운 게시물들은 이제 데이터베이스에 넣어준다.
      *
+     *
      * 서버 크롤링 하는형식 -> 우리 데이터베이스에 저장되어있는 데이터를 꺼내오는 방식
      */
 
-    //    @Scheduled(cron = "0 * * * * *")
-    @Scheduled(fixedDelay = 1000000)
+    @Scheduled(cron = "0 * * * * *")
     public void getHaksaPage() throws IOException {
         String url = SchoolUrl.HAKSA_URL.getUrl();
         Document doc = Jsoup.connect(url).get();
@@ -41,15 +41,15 @@ public class SchedulerService {
         List<Notice> list = new ArrayList<>();
         for (int i = 0; i < size; i += TABLE_COLUMN_SIZE) {
             list.add(
-                Notice.builder()
-                    .no(doc.getElementsByTag("td").get(i).text())
-                    .title(doc.getElementsByTag("td").get(i + 1).text())
-                    .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
-                        .getElementsByTag("a").attr("href"))
-                    .author(doc.getElementsByTag("td").get(i + 3).text())
-                    .date(doc.getElementsByTag("td").get(i + 4).text())
-                    .category("학사")
-                    .build()
+                    Notice.builder()
+                            .no(doc.getElementsByTag("td").get(i).text())
+                            .title(doc.getElementsByTag("td").get(i + 1).text())
+                            .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
+                                    .getElementsByTag("a").attr("href"))
+                            .author(doc.getElementsByTag("td").get(i + 3).text())
+                            .date(doc.getElementsByTag("td").get(i + 4).text())
+                            .category("학사")
+                            .build()
             );
             isNewNotice(list.get(i / TABLE_COLUMN_SIZE));
         }
@@ -58,7 +58,7 @@ public class SchedulerService {
         addNewNotice(notices);
     }
 
-    @Scheduled(fixedDelay = 1000000)
+    @Scheduled(cron = "0 * * * * *")
     public void getSooupPage() throws IOException {
         String url = SchoolUrl.SOOUP_URL.getUrl();
         Document doc = Jsoup.connect(url).get();
@@ -66,15 +66,115 @@ public class SchedulerService {
         List<Notice> list = new ArrayList<>();
         for (int i = 0; i < size; i += TABLE_COLUMN_SIZE) {
             list.add(
-                Notice.builder()
-                    .no(doc.getElementsByTag("td").get(i).text())
-                    .title(doc.getElementsByTag("td").get(i + 1).text())
-                    .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
-                        .getElementsByTag("a").attr("href"))
-                    .author(doc.getElementsByTag("td").get(i + 3).text())
-                    .date(doc.getElementsByTag("td").get(i + 4).text())
-                    .category("수업")
-                    .build()
+                    Notice.builder()
+                            .no(doc.getElementsByTag("td").get(i).text())
+                            .title(doc.getElementsByTag("td").get(i + 1).text())
+                            .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
+                                    .getElementsByTag("a").attr("href"))
+                            .author(doc.getElementsByTag("td").get(i + 3).text())
+                            .date(doc.getElementsByTag("td").get(i + 4).text())
+                            .category("수업")
+                            .build()
+            );
+            isNewNotice(list.get(i / TABLE_COLUMN_SIZE));
+        }
+        List<Notice> notices = filterNewNotice(list);
+        //sendAlarm(notices);
+        addNewNotice(notices);
+    }
+
+    @Scheduled(cron = "0 * * * * *")
+    public void getHakjumPage() throws IOException {
+        String url = SchoolUrl.HAKJUM_URL.getUrl();
+        Document doc = Jsoup.connect(url).get();
+        int size = doc.getElementsByTag("td").size();
+        List<Notice> list = new ArrayList<>();
+        for (int i = 0; i < size; i += TABLE_COLUMN_SIZE) {
+            list.add(
+                    Notice.builder()
+                            .no(doc.getElementsByTag("td").get(i).text())
+                            .title(doc.getElementsByTag("td").get(i + 1).text())
+                            .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
+                                    .getElementsByTag("a").attr("href"))
+                            .author(doc.getElementsByTag("td").get(i + 3).text())
+                            .date(doc.getElementsByTag("td").get(i + 4).text())
+                            .category("학점")
+                            .build()
+            );
+            isNewNotice(list.get(i / TABLE_COLUMN_SIZE));
+        }
+        List<Notice> notices = filterNewNotice(list);
+        //sendAlarm(notices);
+        addNewNotice(notices);
+    }
+
+    @Scheduled(cron = "0 * * * * *")
+    public void getJanghakPage() throws IOException {
+        String url = SchoolUrl.JANGHAK_URL.getUrl();
+        Document doc = Jsoup.connect(url).get();
+        int size = doc.getElementsByTag("td").size();
+        List<Notice> list = new ArrayList<>();
+        for (int i = 0; i < size; i += TABLE_COLUMN_SIZE) {
+            list.add(
+                    Notice.builder()
+                            .no(doc.getElementsByTag("td").get(i).text())
+                            .title(doc.getElementsByTag("td").get(i + 1).text())
+                            .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
+                                    .getElementsByTag("a").attr("href"))
+                            .author(doc.getElementsByTag("td").get(i + 3).text())
+                            .date(doc.getElementsByTag("td").get(i + 4).text())
+                            .category("장학")
+                            .build()
+            );
+            isNewNotice(list.get(i / TABLE_COLUMN_SIZE));
+        }
+        List<Notice> notices = filterNewNotice(list);
+        //sendAlarm(notices);
+        addNewNotice(notices);
+    }
+
+    @Scheduled(cron = "0 * * * * *")
+    public void getIlbanPage() throws IOException {
+        String url = SchoolUrl.ILBAN_URL.getUrl();
+        Document doc = Jsoup.connect(url).get();
+        int size = doc.getElementsByTag("td").size();
+        List<Notice> list = new ArrayList<>();
+        for (int i = 0; i < size; i += TABLE_COLUMN_SIZE) {
+            list.add(
+                    Notice.builder()
+                            .no(doc.getElementsByTag("td").get(i).text())
+                            .title(doc.getElementsByTag("td").get(i + 1).text())
+                            .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
+                                    .getElementsByTag("a").attr("href"))
+                            .author(doc.getElementsByTag("td").get(i + 3).text())
+                            .date(doc.getElementsByTag("td").get(i + 4).text())
+                            .category("일반")
+                            .build()
+            );
+            isNewNotice(list.get(i / TABLE_COLUMN_SIZE));
+        }
+        List<Notice> notices = filterNewNotice(list);
+        //sendAlarm(notices);
+        addNewNotice(notices);
+    }
+
+    @Scheduled(cron = "0 * * * * *")
+    public void getHangsaPage() throws IOException {
+        String url = SchoolUrl.HANGSA_URL.getUrl();
+        Document doc = Jsoup.connect(url).get();
+        int size = doc.getElementsByTag("td").size();
+        List<Notice> list = new ArrayList<>();
+        for (int i = 0; i < size; i += TABLE_COLUMN_SIZE) {
+            list.add(
+                    Notice.builder()
+                            .no(doc.getElementsByTag("td").get(i).text())
+                            .title(doc.getElementsByTag("td").get(i + 1).text())
+                            .href("http://skhu.ac.kr/board/" + doc.getElementsByTag("td").get(i + 1)
+                                    .getElementsByTag("a").attr("href"))
+                            .author(doc.getElementsByTag("td").get(i + 3).text())
+                            .date(doc.getElementsByTag("td").get(i + 4).text())
+                            .category("행사")
+                            .build()
             );
             isNewNotice(list.get(i / TABLE_COLUMN_SIZE));
         }
@@ -88,7 +188,7 @@ public class SchedulerService {
     }
 
     private boolean isNewNotice(Notice notice) {
-        return noticeRepository.findNoticeByTitleAndCategory(notice.getTitle(), notice.getCategory()) == null;
+        return noticeRepository.findNoticeByHrefAndCategory(notice.getHref(), notice.getCategory()) == null;
     }
 
     private void addNewNotice(List<Notice> newNotices) {

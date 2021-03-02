@@ -1,5 +1,6 @@
 package kr.nutee.crawler.Controller;
 
+import kr.nutee.crawler.Enum.SchoolUrl;
 import kr.nutee.crawler.Service.CrawlService;
 import kr.nutee.crawler.domain.entity.Notice;
 import lombok.RequiredArgsConstructor;
@@ -26,31 +27,31 @@ public class CrawlController {
 
     @GetMapping(path = "/haksa")
     public List<Notice> crawlHaksa() throws IOException {
-        return crawlService.getPageData("http://skhu.ac.kr/board/boardlist.aspx?bsid=10004&searchBun=51");
+        return crawlService.getPageData(SchoolUrl.HAKSA_URL.getUrl());
     }
 
     @GetMapping(path = "/sooup")
     public List<Notice> crawlSooup() throws IOException {
-        return crawlService.getPageData("http://www.skhu.ac.kr/board/boardlist.aspx?bsid=10005&searchBun=53");
+        return crawlService.getPageData(SchoolUrl.SOOUP_URL.getUrl());
     }
 
     @GetMapping(path = "/hakjum")
     public List<Notice> crawlHakjum() throws IOException {
-        return crawlService.getPageData("http://www.skhu.ac.kr/board/boardlist.aspx?bsid=10038&searchBun=89");
+        return crawlService.getPageData(SchoolUrl.HAKJUM_URL.getUrl());
     }
 
     @GetMapping(path = "/janghak")
     public List<Notice> crawlJanghak() throws IOException {
-        return crawlService.getPageData("http://www.skhu.ac.kr/board/boardlist.aspx?bsid=10006&searchBun=75");
+        return crawlService.getPageData(SchoolUrl.JANGHAK_URL.getUrl());
     }
 
     @GetMapping(path = "/ilban")
     public List<Notice> crawlIlban() throws IOException {
-        return crawlService.getPageData("http://www.skhu.ac.kr/board/boardlist.aspx?bsid=10007");
+        return crawlService.getPageData(SchoolUrl.ILBAN_URL.getUrl());
     }
 
     @GetMapping(path = "/hangsa")
     public List<Notice> crawlHangsa() throws IOException {
-        return crawlService.getPageData("http://www.skhu.ac.kr/board/boardlist.aspx?bsid=10008");
+        return crawlService.getPageData(SchoolUrl.HANGSA_URL.getUrl());
     }
 }

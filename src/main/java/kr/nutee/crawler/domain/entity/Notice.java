@@ -17,11 +17,11 @@ public class Notice {
 
     private String no;
 
-    @Id
     String title;
 
     private String author;
 
+    @Id
     private String href;
 
     private String date;
