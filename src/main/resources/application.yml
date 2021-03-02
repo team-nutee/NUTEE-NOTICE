@@ -1,2 +1,20 @@
 server:
   port: 9709
+
+spring:
+  #MYSQL CONFIG
+  datasource:
+    url: jdbc:mysql://nutee.cmwlqxe5se7d.ap-northeast-2.rds.amazonaws.com:3306/nutee_crawl?useUnicode=true&characterEncoding=UTF-8
+    username: nutee
+    password: since2012!
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  main:
+    allow-bean-definition-overriding: true
