@@ -13,7 +13,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class SchedulerService {
+public class Scheduler {
     @Autowired
     NoticeService noticeService;
 

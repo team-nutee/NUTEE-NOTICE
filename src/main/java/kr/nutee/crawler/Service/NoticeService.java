@@ -19,7 +19,7 @@ public class NoticeService {
 
     private final NoticeRepository noticeRepository;
     private final int TABLE_COLUMN_SIZE = 6;
-
+//
 
     public void checkNotice(String url, String catecory) throws IOException {
         Document doc = Jsoup.connect(url).get();
