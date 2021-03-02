@@ -19,11 +19,11 @@ public class Scheduler {
 
     @Scheduled(cron = "0 * * * * *")
     public void checkPage() throws IOException {
-        noticeService.checkNotice(SchoolUrl.HAKSA_URL.getUrl(), "학사");
-        noticeService.checkNotice(SchoolUrl.SOOUP_URL.getUrl(), "수업");
-        noticeService.checkNotice(SchoolUrl.HAKJUM_URL.getUrl(), "학점");
-        noticeService.checkNotice(SchoolUrl.JANGHAK_URL.getUrl(), "장학");
-        noticeService.checkNotice(SchoolUrl.ILBAN_URL.getUrl(), "일반");
-        noticeService.checkNotice(SchoolUrl.HANGSA_URL.getUrl(), "행사");
+        noticeService.checkNewNotice(SchoolUrl.HAKSA_URL.getUrl(), "학사");
+        noticeService.checkNewNotice(SchoolUrl.SOOUP_URL.getUrl(), "수업");
+        noticeService.checkNewNotice(SchoolUrl.HAKJUM_URL.getUrl(), "학점");
+        noticeService.checkNewNotice(SchoolUrl.JANGHAK_URL.getUrl(), "장학");
+        noticeService.checkNewNotice(SchoolUrl.ILBAN_URL.getUrl(), "일반");
+        noticeService.checkNewNotice(SchoolUrl.HANGSA_URL.getUrl(), "행사");
     }
 }
