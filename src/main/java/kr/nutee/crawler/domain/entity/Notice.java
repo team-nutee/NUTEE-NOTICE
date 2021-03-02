@@ -17,7 +17,7 @@ public class Notice {
 
     private String no;
 
-    String title;
+    private String title;
 
     private String author;
 
