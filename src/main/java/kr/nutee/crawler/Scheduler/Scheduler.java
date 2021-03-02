@@ -16,7 +16,7 @@ import java.io.IOException;
 public class Scheduler {
     @Autowired
     NoticeService noticeService;
-
+//
     @Scheduled(cron = "0 * * * * *")
     public void checkPage() throws IOException {
         noticeService.checkNotice(SchoolUrl.HAKSA_URL.getUrl(), "학사");
