@@ -29,7 +29,7 @@ public class NoticeApi {
 
 //    @RequestMapping(value = "notices/{category}", method = RequestMethod.GET)
     @GetMapping(path = "/{category}")
-    public List<Notice> cNotice(@PathVariable("category") String category) {
+    public List<Notice> categoryNotice(@PathVariable("category") String category) {
         List<Notice> list = new ArrayList<>();
         int Table_Size = (int) noticeRepository.count();
         for(int i=0 ; i<Table_Size ; i++) {
