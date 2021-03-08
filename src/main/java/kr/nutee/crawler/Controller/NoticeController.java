@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "/notice")
 @Slf4j
-public class ApiController {
+public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
