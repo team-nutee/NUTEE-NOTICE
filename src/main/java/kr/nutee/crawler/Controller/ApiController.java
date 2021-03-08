@@ -1,6 +1,6 @@
 package kr.nutee.crawler.Controller;
 
-import kr.nutee.crawler.Service.SearchNotice;
+import kr.nutee.crawler.Service.NoticeService;
 import kr.nutee.crawler.domain.entity.Notice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +16,15 @@ import java.util.List;
 @Slf4j
 public class ApiController {
     @Autowired
-    SearchNotice searchnotice;
-
+    NoticeService noticeService;
 
     @GetMapping(path = "/all")
     public List<Notice> allNotice() {
-        return searchnotice.searchAllNotice();
+        return noticeService.searchAllNotice();
     }
 
     @GetMapping(path = "/{category}")
     public List<Notice> categoryNotice(@PathVariable("category") String category) {
-        return searchnotice.searchByCategory(category);
+        return noticeService.searchByCategory(category);
     }
 }

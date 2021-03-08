@@ -1,6 +1,8 @@
 package kr.nutee.crawler.Service;
 
 import java.util.stream.Collectors;
+
+import jdk.jfr.Category;
 import kr.nutee.crawler.domain.entity.Notice;
 import kr.nutee.crawler.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
@@ -57,5 +59,20 @@ public class NoticeService {
         for (Notice newNotice : newNotices) {
             noticeRepository.save(newNotice);
         }
+    }
+
+    public List<Notice> searchAllNotice() {
+        return noticeRepository.findAll();
+    }
+
+    public List<Notice> searchByCategory(String category) {
+        int tableSize = (int) noticeRepository.count();
+        List<Notice> list = new ArrayList<>();
+        for(int i = 0 ; i < tableSize ; i++) {
+            if(noticeRepository.findAll().get(i).getCategory().equals(category)) {
+                list.add(noticeRepository.findAll().get(i));
+            }
+        }
+        return list;
     }
 }
