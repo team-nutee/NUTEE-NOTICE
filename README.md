@@ -1,5 +1,11 @@
 # NUTEE-NOTICE
+
+## NUTEE 구조도
 ![NUTEE 구조도](https://user-images.githubusercontent.com/47442178/108618442-96779080-7461-11eb-819e-c8dd855a8070.jpg)
+
+## NOTICE Server 구조도
+![NOTICE 구조도](https://user-images.githubusercontent.com/47442178/112945619-7da08000-916f-11eb-8c62-8836bc0a2be4.png)
+
 ### 서비스 주요 기능
 - NUTEE 서비스에 필요한 교내 공지사항 크롤링 
 - NUTEE 교내 공지사항 등록시 기기 알림 및, 사용하기 편하게 가공된 공지사항 데이터 api 제공.
