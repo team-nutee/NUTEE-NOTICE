@@ -5,9 +5,11 @@ import kr.nutee.crawler.domain.entity.Notice;
 import kr.nutee.crawler.dto.Resource.ResponseResource;
 import kr.nutee.crawler.dto.Response.NoticeData;
 import kr.nutee.crawler.dto.Response.Response;
+import kr.nutee.crawler.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/crawl")//, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/crawl", consumes = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @ResponseBody
 @Slf4j
@@ -27,6 +29,8 @@ public class CrawlController {
 
     @Autowired
     NoticeService noticeService;
+    @Autowired
+    NoticeRepository noticeRepository;
 
     @GetMapping(path = "/haksa")
     public ResponseEntity<ResponseResource> crawlHaksa() throws IOException {
@@ -135,4 +139,24 @@ public class CrawlController {
         ResponseResource resource = new ResponseResource(response, CrawlController.class,"hangsa");
         return ResponseEntity.ok().body(resource);
     }
+
+//    @GetMapping(path = "/test")
+//    public ResponseEntity<ResponseResource> test(Pageable pageable) {
+//        //Page<Notice> list = noticeRepository.findAll(pageable);
+//        Page<Notice> list = noticeRepository.findAllByCategory("행사");
+//        List<NoticeData> listData = new ArrayList<>();
+//
+//        for(int i = 0; i<list.getSize(); i++) {
+//            NoticeData noticeData = new NoticeData(list.getContent().get(i));
+//            listData.add(noticeData);
+//        }
+//        Response response = Response.builder()
+//                .code(10)
+//                .message("test")
+//                .body(listData)
+//                .build();
+//        ResponseResource resource = new ResponseResource(response, CrawlController.class,"hangsa");
+//        return ResponseEntity.ok().body(resource);
+
+//    }
 }

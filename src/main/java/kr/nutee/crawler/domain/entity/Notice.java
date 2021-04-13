@@ -1,11 +1,9 @@
 package kr.nutee.crawler.domain.entity;
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 
 @Entity
@@ -13,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Getter
+@Setter
 public class Notice {
 
     private String no;
@@ -29,4 +28,5 @@ public class Notice {
     private int hit;
 
     private String category;
+
 }

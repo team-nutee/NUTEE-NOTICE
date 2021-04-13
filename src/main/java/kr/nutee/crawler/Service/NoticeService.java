@@ -1,8 +1,5 @@
 package kr.nutee.crawler.Service;
 
-import java.util.stream.Collectors;
-
-
 import kr.nutee.crawler.domain.entity.Notice;
 import kr.nutee.crawler.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
+
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +20,6 @@ public class NoticeService {
 
     private final NoticeRepository noticeRepository;
     private final int TABLE_COLUMN_SIZE = 6;
-
 
     public void checkNewNotice(String url, String catecory) throws IOException {
         Document doc = Jsoup.connect(url).get();
@@ -66,4 +65,9 @@ public class NoticeService {
     public List<Notice> searchByCategory(String category) {
         return noticeRepository.findAllByCategory(category);
     }
+
+//    public void changeByCategory(String category) {
+//        noticeRepository.findAllByCategory(category).get(0).setNo();
+//    }
+
 }
