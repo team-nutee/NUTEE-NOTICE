@@ -66,6 +66,8 @@ public class NoticeService {
         return noticeRepository.findAllByCategory(category);
     }
 
+
+
 //    public void changeByCategory(String category) {
 //        noticeRepository.findAllByCategory(category).get(0).setNo();
 //    }
