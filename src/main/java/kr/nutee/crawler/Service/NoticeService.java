@@ -1,11 +1,16 @@
 package kr.nutee.crawler.Service;
 
+import kr.nutee.crawler.Controller.NoticeController;
 import kr.nutee.crawler.domain.entity.Notice;
+import kr.nutee.crawler.dto.Resource.ResponseResource;
+import kr.nutee.crawler.dto.Response.NoticeData;
+import kr.nutee.crawler.dto.Response.Response;
 import kr.nutee.crawler.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -66,7 +71,22 @@ public class NoticeService {
         return noticeRepository.findAllByCategory(category);
     }
 
+    public ResponseEntity<ResponseResource> getNoticeApi(String category, String url) {
+        List<Notice> list = searchByCategory(category);
+        List<NoticeData> listData = new ArrayList<>();
 
+        for(int i = 0; i<list.size(); i++) {
+            NoticeData noticeData = new NoticeData(list.get(i));
+            listData.add(noticeData);
+        }
+        Response response = Response.builder()
+                .code(10)
+                .message(category+"목록")
+                .body(listData)
+                .build();
+        ResponseResource resource = new ResponseResource(response, NoticeController.class,url);
+        return ResponseEntity.ok().body(resource);
+    }
 
 //    public void changeByCategory(String category) {
 //        noticeRepository.findAllByCategory(category).get(0).setNo();
