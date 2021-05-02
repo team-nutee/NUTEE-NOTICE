@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -66,28 +68,46 @@ public class NoticeService {
     public List<Notice> searchAllNotice() {
         return noticeRepository.findAll();
     }
+//
+//    public List<Notice> searchByCategory(String category) {
+//        return noticeRepository.findAllByCategory(category);
+//    }
 
-    public List<Notice> searchByCategory(String category) {
-        return noticeRepository.findAllByCategory(category);
-    }
+//    public ResponseEntity<ResponseResource> getNoticeApi(String category, String url) {
+//        List<Notice> list = searchByCategory(category);
+//        List<NoticeData> listData = new ArrayList<>();
+//
+//        for(int i = 0; i<list.size(); i++) {
+//            NoticeData noticeData = new NoticeData(list.get(i));
+//            listData.add(noticeData);
+//        }
+//        Response response = Response.builder()
+//                .code(10)
+//                .message(category+"목록")
+//                .body(listData)
+//                .build();
+//        ResponseResource resource = new ResponseResource(response, NoticeController.class,url);
+//        return ResponseEntity.ok().body(resource);
+//    }
 
-    public ResponseEntity<ResponseResource> getNoticeApi(String category, String url) {
-        List<Notice> list = searchByCategory(category);
+    public ResponseEntity<ResponseResource> getNoticeApi(String category, String url, Pageable pageable) {
+//        Page<Notice> list = noticeRepository.findAll(pageable);
+        Page<Notice> list = noticeRepository.findAllByCategory(category, pageable);
         List<NoticeData> listData = new ArrayList<>();
 
-        for(int i = 0; i<list.size(); i++) {
-            NoticeData noticeData = new NoticeData(list.get(i));
+        for(int i = 0; i<list.getSize(); i++) {
+            NoticeData noticeData = new NoticeData(list.getContent().get(i));
             listData.add(noticeData);
         }
         Response response = Response.builder()
                 .code(10)
-                .message(category+"목록")
+                .message(category + "목록")
                 .body(listData)
                 .build();
-        ResponseResource resource = new ResponseResource(response, NoticeController.class,url);
+        ResponseResource resource = new ResponseResource(response, NoticeController.class, url);
         return ResponseEntity.ok().body(resource);
-    }
 
+    }
 //    public void changeByCategory(String category) {
 //        noticeRepository.findAllByCategory(category).get(0).setNo();
 //    }
