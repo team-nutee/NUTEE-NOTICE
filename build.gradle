@@ -8,7 +8,8 @@ plugins {
 
 group = 'kr.nutee'
 version = '0.0.1-SNAPSHOT'
-description = 'crawler'
+//description = 'crawler'
+description = 'nutee-crawler'
 sourceCompatibility = '11'
 
 configurations {

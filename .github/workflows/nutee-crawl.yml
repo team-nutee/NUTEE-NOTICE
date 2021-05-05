@@ -11,7 +11,7 @@ on:
 
 env:
   S3_BUCKET_NAME: nutee-storage
-  PROJECT_NAME: nutee-crawler
+  PROJECT_NAME: nutee-crawl
 
 jobs:
   build:
@@ -47,7 +47,7 @@ jobs:
         aws-region: ap-northeast-2
 
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://nutee-storage/nutee-crawler/$GITHUB_SHA.zip
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://nutee-storage/nutee-crawl/$GITHUB_SHA.zip
 
     - name: Code Deploy
-      run : aws deploy create-deployment --application-name nutee-crawler --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name nutee --s3-location bucket=nutee-storage,bundleType=zip,key=nutee-crawler/$GITHUB_SHA.zip
+      run : aws deploy create-deployment --application-name nutee-crawl --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name nutee --s3-location bucket=nutee-storage,bundleType=zip,key=nutee-crawl/$GITHUB_SHA.zip
