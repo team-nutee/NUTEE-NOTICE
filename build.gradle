@@ -8,7 +8,8 @@ plugins {
 
 group = 'kr.nutee'
 version = '0.0.1-SNAPSHOT'
-description = 'crawler'
+//description = 'crawler'
+description = 'nutee-crawler'
 sourceCompatibility = '11'
 
 configurations {
@@ -36,6 +37,8 @@ dependencies {
 //    implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE'
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    implementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     //
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
