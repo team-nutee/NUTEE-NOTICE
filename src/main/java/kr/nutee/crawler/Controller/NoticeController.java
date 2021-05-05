@@ -19,7 +19,6 @@ import java.io.IOException;
 @ResponseBody
 @Slf4j
 public class NoticeController {
-
     @Autowired
     NoticeService noticeService;
 
