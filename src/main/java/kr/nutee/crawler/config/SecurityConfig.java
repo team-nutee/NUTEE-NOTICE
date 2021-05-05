@@ -38,10 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers("/**").permitAll().
                 and().
                 authorizeRequests().
-                antMatchers("/crawl/**").authenticated().
-                antMatchers("/notice/**").authenticated();
+                antMatchers("/crawl/**").authenticated();
     }
-
+//    @Override
+//    public void configure(WebSec`urity web) {
+//        web.ignoring()
+//                .antMatchers("/**");
+//    }
 
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -63,7 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("*");
+        configuration.addAllowedOrigin("http://nutee.kr:9709/crawl");
+        //configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
