@@ -5,7 +5,7 @@ DEPLOY=/home/ec2-user/NUTEE/crawl-jar
 
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 
-CURRENT_PID=$(pgrep -f crawler)
+CURRENT_PID=$(pgrep -f nutee-crawler)
 
 echo "$CURRENT_PID"
 
@@ -23,7 +23,7 @@ echo "> Build 파일 복사"
 
 cp $REPOSITORY/build/libs/*.jar $DEPLOY/
 
-JAR_NAME=$(ls $DEPLOY/ |grep 'crawler' | tail -n 1)
+JAR_NAME=$(ls $DEPLOY/ |grep 'nutee-crawler' | tail -n 1)
 
 echo "> JAR Name: $JAR_NAME"
 
