@@ -66,8 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://nutee.kr:9709/crawl");
-        //configuration.addAllowedOrigin("*");
+//        configuration.addAllowedOrigin("http://nutee.kr:9709/crawl");
+        configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
