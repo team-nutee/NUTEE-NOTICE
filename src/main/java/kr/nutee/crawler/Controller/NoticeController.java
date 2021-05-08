@@ -5,7 +5,6 @@ import kr.nutee.crawler.dto.Resource.ResponseResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping(path = "/crawl", consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/crawl")//, consumes = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @ResponseBody
 @Slf4j
@@ -23,32 +22,32 @@ public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
-    @GetMapping(path = "/haksa")
+    @GetMapping("/haksa")
     public ResponseEntity<ResponseResource> crawlHaksa() throws IOException {
         return noticeService.getNoticeApi("학사","haksa");
     }
 
-    @GetMapping(path = "/sooup")
+    @GetMapping("/sooup")
     public ResponseEntity<ResponseResource> crawlSooup() throws IOException {
         return noticeService.getNoticeApi("수업","sooup");
     }
 
-    @GetMapping(path = "/hakjum")
+    @GetMapping("/hakjum")
     public ResponseEntity<ResponseResource> crawlHakjum() throws IOException {
         return noticeService.getNoticeApi("학점","hakjum");
     }
 
-    @GetMapping(path = "/janghak")
+    @GetMapping("/janghak")
     public ResponseEntity<ResponseResource> crawlJanghak() throws IOException {
         return noticeService.getNoticeApi("장학","janghak");
     }
 
-    @GetMapping(path = "/ilban")
+    @GetMapping("/ilban")
     public ResponseEntity<ResponseResource> crawlIlban() throws IOException {
         return noticeService.getNoticeApi("일반","ilban");
     }
 
-    @GetMapping(path = "/hangsa")
+    @GetMapping("/hangsa")
     public ResponseEntity<ResponseResource> crawlHangsa() throws IOException {
         return noticeService.getNoticeApi("행사","hangsa");
     }
