@@ -12,5 +12,11 @@ import lombok.NoArgsConstructor;
 public class Response {
     int code;
     String message;
+//    int startPage;
+//    int endPage;
+    int pageSize;
+    int pageNo;
     Object body;
+
+
 }

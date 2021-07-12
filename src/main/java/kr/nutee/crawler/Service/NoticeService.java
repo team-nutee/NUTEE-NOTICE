@@ -1,7 +1,7 @@
 package kr.nutee.crawler.Service;
 
 import kr.nutee.crawler.Controller.NoticeController;
-import kr.nutee.crawler.domain.entity.Notice;
+import kr.nutee.crawler.domain.Notice;
 import kr.nutee.crawler.dto.Resource.ResponseResource;
 import kr.nutee.crawler.dto.Response.NoticeData;
 import kr.nutee.crawler.dto.Response.Response;
@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -80,28 +82,36 @@ public class NoticeService {
         return ResponseEntity.ok().body(resource);
     }
 
-//    public ResponseEntity<ResponseResource> getNoticeApi(String category, String url, Pageable pageable) {
-////        Page<Notice> list = noticeRepository.findAll(pageable);
-//        Page<Notice> list = noticeRepository.findAllByCategory(category, pageable);
-//        List<NoticeData> listData = new ArrayList<>();
-//
-//
-//        for(int i = 0; i<list.getSize(); i++) {
-//            NoticeData noticeData = new NoticeData(list.getContent().get(i));
-//            listData.add(noticeData);
-//        }
-//        System.out.println(list.getPageable().getPageNumber());
-//        System.out.println(list.getPageable().getPageSize());
-//        Response response = Response.builder()
-//                .code(10)
-//                .message(category + "목록")
-//                .body(listData)
-//                .build();
-//        ResponseResource resource = new ResponseResource(response, NoticeController.class, url);
-//        return ResponseEntity.ok().body(resource);
-//
-//    } page test
+    public ResponseEntity<ResponseResource> getNoticePage(String category, String url, Pageable pageable) {
+//        Page<Notice> list = noticeRepository.findAll(pageable);
+        Page<Notice> list = noticeRepository.findAllByCategoryAndHit(category,0, pageable);
+        List<NoticeData> listData = new ArrayList<>();
 
+
+//        int start = Math.max(1,list.getPageable().getPageNumber()-4);
+//        int end = Math.min(list.getTotalPages(), list.getPageable().getPageNumber()+4);
+        //페이지 바 페이지 몇개 보여줄 지.
+        int total = list.getTotalPages();
+        int page = list.getPageable().getPageNumber();
+
+        for(int i = 0; i<list.getNumberOfElements(); i++) {
+            NoticeData noticeData = new NoticeData(list.getContent().get(i));
+            listData.add(noticeData);
+        }
+
+        Response response = Response.builder()
+                .code(10)
+                .message(category + "목록")
+//                .startPage(start)
+//                .endPage(end)
+                .pageSize(total)
+                .pageNo(page)
+                .body(listData)
+                .build();
+        ResponseResource resource = new ResponseResource(response, NoticeController.class, url);
+        return ResponseEntity.ok().body(resource);
+
+    }
 
 //    public void changeByCategory(String category) {
 //        noticeRepository.findAllByCategory(category).get(0).setNo();

@@ -5,7 +5,9 @@ import kr.nutee.crawler.dto.Resource.ResponseResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping(path = "/crawl", consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/crawl")//, consumes = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @ResponseBody
 @Slf4j
@@ -23,62 +25,68 @@ public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
-    @GetMapping("/haksa")
-    public ResponseEntity<ResponseResource> crawlHaksa() throws IOException {
-        return noticeService.getNoticeApi("학사","haksa");
-    }
-
-    @GetMapping("/sooup")
-    public ResponseEntity<ResponseResource> crawlSooup() throws IOException {
-        return noticeService.getNoticeApi("수업","sooup");
-    }
-
-    @GetMapping("/hakjum")
-    public ResponseEntity<ResponseResource> crawlHakjum() throws IOException {
-        return noticeService.getNoticeApi("학점","hakjum");
-    }
-
-    @GetMapping("/janghak")
-    public ResponseEntity<ResponseResource> crawlJanghak() throws IOException {
-        return noticeService.getNoticeApi("장학","janghak");
-    }
-
-    @GetMapping("/ilban")
-    public ResponseEntity<ResponseResource> crawlIlban() throws IOException {
-        return noticeService.getNoticeApi("일반","ilban");
-    }
-
-    @GetMapping("/hangsa")
-    public ResponseEntity<ResponseResource> crawlHangsa() throws IOException {
-        return noticeService.getNoticeApi("행사","hangsa");
-    }
-//    @GetMapping(path = "/haksa")
-//    public ResponseEntity<ResponseResource> crawlHaksa(@PageableDefault(size=10) Pageable pageable) throws IOException {
-//        return noticeService.getNoticeApi("학사","haksa", pageable);
+//    @GetMapping("/haksa")
+//    public ResponseEntity<ResponseResource> crawlHaksa() throws IOException {
+//        return noticeService.getNoticeApi("학사","haksa");
 //    }
 //
-//    @GetMapping(path = "/sooup")
-//    public ResponseEntity<ResponseResource> crawlSooup(@PageableDefault(size=10) Pageable pageable) throws IOException {
-//        return noticeService.getNoticeApi("수업","sooup", pageable);
+//    @GetMapping("/sooup")
+//    public ResponseEntity<ResponseResource> crawlSooup() throws IOException {
+//        return noticeService.getNoticeApi("수업","sooup");
 //    }
 //
-//    @GetMapping(path = "/hakjum")
-//    public ResponseEntity<ResponseResource> crawlHakjum(@PageableDefault(size=10) Pageable pageable) throws IOException {
-//        return noticeService.getNoticeApi("학점","hakjum", pageable);
+//    @GetMapping("/hakjum")
+//    public ResponseEntity<ResponseResource> crawlHakjum() throws IOException {
+//        return noticeService.getNoticeApi("학점","hakjum");
 //    }
 //
-//    @GetMapping(path = "/janghak")
-//    public ResponseEntity<ResponseResource> crawlJanghak(@PageableDefault(size=10) Pageable pageable) throws IOException {
-//        return noticeService.getNoticeApi("장학","janghak", pageable);
+//    @GetMapping("/janghak")
+//    public ResponseEntity<ResponseResource> crawlJanghak() throws IOException {
+//        return noticeService.getNoticeApi("장학","janghak");
 //    }
 //
-//    @GetMapping(path = "/ilban")
-//    public ResponseEntity<ResponseResource> crawlIlban(@PageableDefault(size=10) Pageable pageable) throws IOException {
-//        return noticeService.getNoticeApi("일반","ilban", pageable);
+//    @GetMapping("/ilban")
+//    public ResponseEntity<ResponseResource> crawlIlban() throws IOException {
+//        return noticeService.getNoticeApi("일반","ilban");
 //    }
 //
-//    @GetMapping(path = "/hangsa")
-//    public ResponseEntity<ResponseResource> crawlHangsa(@PageableDefault(size=10) Pageable pageable) throws IOException {
-//        return noticeService.getNoticeApi("행사","hangsa", pageable);
+//    @GetMapping("/hangsa")
+//    public ResponseEntity<ResponseResource> crawlHangsa() throws IOException {
+//        return noticeService.getNoticeApi("행사","hangsa");
 //    }
+
+//    @GetMapping(path = "/test")
+//    public ResponseEntity<ResponseResource> pageTest(@PageableDefault(size=6,sort="no",direction = Sort.Direction.DESC) Pageable pageable) throws IOException {
+//        return noticeService.testPage("학사","haksa", pageable);
+//    }
+
+    @GetMapping(path = "/haksa")
+    public ResponseEntity<ResponseResource> crawlHaksa(@PageableDefault(size=6,sort="no",direction=Sort.Direction.DESC) Pageable pageable) throws IOException {
+        return noticeService.getNoticePage("학사","haksa", pageable);
+    }
+
+    @GetMapping(path = "/sooup")
+    public ResponseEntity<ResponseResource> crawlSooup(@PageableDefault(size=6,sort="no",direction=Sort.Direction.DESC) Pageable pageable) throws IOException {
+        return noticeService.getNoticePage("수업","sooup", pageable);
+    }
+
+    @GetMapping(path = "/hakjum")
+    public ResponseEntity<ResponseResource> crawlHakjum(@PageableDefault(size=6,sort="no",direction=Sort.Direction.DESC) Pageable pageable) throws IOException {
+        return noticeService.getNoticePage("학점","hakjum", pageable);
+    }
+
+    @GetMapping(path = "/janghak")
+    public ResponseEntity<ResponseResource> crawlJanghak(@PageableDefault(size=6,sort="no",direction=Sort.Direction.DESC) Pageable pageable) throws IOException {
+        return noticeService.getNoticePage("장학","janghak", pageable);
+    }
+
+    @GetMapping(path = "/ilban")
+    public ResponseEntity<ResponseResource> crawlIlban(@PageableDefault(size=6,sort="no",direction=Sort.Direction.DESC) Pageable pageable) throws IOException {
+        return noticeService.getNoticePage("일반","ilban", pageable);
+    }
+
+    @GetMapping(path = "/hangsa")
+    public ResponseEntity<ResponseResource> crawlHangsa(@PageableDefault(size=6,sort="no",direction=Sort.Direction.DESC) Pageable pageable) throws IOException {
+        return noticeService.getNoticePage("행사","hangsa", pageable);
+    }
 }

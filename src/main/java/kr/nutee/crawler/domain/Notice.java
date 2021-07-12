@@ -1,4 +1,4 @@
-package kr.nutee.crawler.domain.entity;
+package kr.nutee.crawler.domain;
 
 import lombok.*;
 

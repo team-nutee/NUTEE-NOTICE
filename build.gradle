@@ -39,6 +39,8 @@ dependencies {
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE'
     testCompile("org.springframework.boot:spring-boot-starter-test")
     implementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    //이거 문서화때문에 추가함
+    testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.2.RELEASE'
     //
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -50,6 +52,7 @@ ext {
 }
 test {
     useJUnitPlatform()
+    outputs.dir snippetsDir
 }
 
 asciidoctor {
