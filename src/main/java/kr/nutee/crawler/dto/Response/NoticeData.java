@@ -1,6 +1,6 @@
 package kr.nutee.crawler.dto.Response;
 
-import kr.nutee.crawler.domain.entity.Notice;
+import kr.nutee.crawler.domain.Notice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
